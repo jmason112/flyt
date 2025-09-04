@@ -32,11 +32,11 @@ Common scripts
 
 Testing
 - Unit/component: pnpm test
-- E2E (uses MSW mocks): pnpm build && pnpm start, then pnpm e2e
+- E2E (uses MSW mocks): pnpm e2e (webServer builds/starts automatically)
 - Happy path: search → offer → checkout → confirmation
 - Admin refund and basic a11y checks included
 
 Notes
-- All network calls go through lib/api/client.ts (ky).
+- All network calls go through src/lib/api/client.ts (ky).
 - Access token stored in-memory; refresh handled via /auth/refresh httpOnly cookie.
-- MSW is enabled in development via Providers.
+- MSW is enabled via Providers; relative API paths ensure MSW intercepts in E2E.
