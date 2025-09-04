@@ -21,7 +21,7 @@ import type {
   Booking,
 } from './types'
 
-const BASE_URL = process.env.NEXT_PUBLIC_LITE_API_BASE_URL as string
+const BASE_URL = (process.env.NEXT_PUBLIC_LITE_API_BASE_URL || '') as string
 const LOG_LEVEL = process.env.LOG_LEVEL || 'info'
 
 const sleep = (ms: number) => new Promise((r) => setTimeout(r, ms))
@@ -40,7 +40,7 @@ async function refreshAccessToken(client: KyInstance) {
 
 function createClient(): KyInstance {
   const client: KyInstance = ky.create({
-    prefixUrl: BASE_URL,
+    prefixUrl: BASE_URL || '/',
     headers: {
       'Content-Type': 'application/json',
     },
@@ -109,6 +109,8 @@ export const api = {
   },
   flights: {
     search: (body: FlightSearchBody) => http.post('search/flights', { json: body }).json<CursorPage<FlightOffer>>(),
+  },
+  offers: {
     recheck: (id: string) => http.post(`offers/${id}/recheck`).json<RecheckResponse>(),
   },
   payments: {
@@ -127,7 +129,10 @@ export const api = {
     get: (id: string) => http.get(`itineraries/${id}`).json<{ itinerary: Record<string, unknown> }>(),
   },
   admin: {
-    bookings: (q: AdminBookingListQuery) => http.get('admin/bookings', { searchParams: q as Record<string, string> }).json<{ items: Booking[]; total: number }>(),
+    bookings: (page: number, pageSize: number) =>
+      http
+        .get('admin/bookings', { searchParams: { page: String(page), pageSize: String(pageSize) } })
+        .json<{ items: Booking[]; total: number }>(),
     booking: (id: string) => http.get(`admin/bookings/${id}`).json<{ booking: Booking; events: Array<Record<string, unknown>> }>(),
     refund: (id: string, amount: number) => http.post(`admin/bookings/${id}/refund`, { json: { amount } }).json<{ status: string }>(),
   },

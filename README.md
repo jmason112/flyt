@@ -1,4 +1,8 @@
-# Travel App (Next.js + Lite API)
+# Flyt — Travel App (Next.js + Lite API)
+
+Branding
+- App name: Flyt
+- Logo: public/logo.png
 
 Tech stack
 - Next.js 15, TypeScript, Tailwind CSS
@@ -25,6 +29,12 @@ Common scripts
 - pnpm lint
 - pnpm test
 - pnpm e2e
+
+Testing
+- Unit/component: pnpm test
+- E2E (uses MSW mocks): pnpm build && pnpm start, then pnpm e2e
+- Happy path: search → offer → checkout → confirmation
+- Admin refund and basic a11y checks included
 
 Notes
 - All network calls go through lib/api/client.ts (ky).

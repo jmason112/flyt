@@ -32,7 +32,7 @@ export default function FlightSearchPage() {
       <form onSubmit={handleSubmit(onSubmit)} className="grid grid-cols-2 gap-3 mb-6">
         <input className="rounded border p-2" placeholder="Origin (e.g. SFO)" {...register('origin')} />
         <input className="rounded border p-2" placeholder="Destination (e.g. LAX)" {...register('destination')} />
-        <input className="rounded border p-2" type="date" {...register('departDate')} />
+        <input aria-label="Depart date" className="rounded border p-2" type="date" {...register('departDate')} />
         <input className="rounded border p-2" type="number" min={1} {...register('adults', { valueAsNumber: true })} />
         <button className="col-span-2 rounded bg-blue-600 text-white py-2 disabled:opacity-60" disabled={search.isPending}>{search.isPending ? 'Searching...' : 'Search'}</button>
       </form>

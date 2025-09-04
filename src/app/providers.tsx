@@ -8,7 +8,7 @@ import { AuthProvider } from '@/lib/auth/AuthContext'
 const queryClient = new QueryClient()
 
 function MswLoader() {
-  if (typeof window !== 'undefined' && process.env.NODE_ENV === 'development') {
+  if (typeof window !== 'undefined') {
     import('@/mocks/browser').then(({ worker }) => {
       worker.start({ onUnhandledRequest: 'bypass' })
     })

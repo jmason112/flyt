@@ -52,5 +52,10 @@
     "typescript": "^5",
     "vitest": "^3.2.4",
     "whatwg-fetch": "^3.6.20"
+  },
+  "msw": {
+    "workerDirectory": [
+      "public"
+    ]
   }
 }
